@@ -3,14 +3,14 @@
     "nl": {
       "container1": {
           "title": "IDbox",
-          "decription": "A cost efficient device that enables people to create a unique identity in developing countries",
-          "sub1": "Using Blockchain and AI",
-          "sub2": "Internet and Grid Energy",
-          "sub3": "- Decentralised and Free -"
+          "decription": "Een kosten-efficient toestel dat mensen toe laat om een unieke identiteit te creeeren in ontwikkelende landen",
+          "sub1": "Gebruik makende van Blockchain en AI",
+          "sub2": "Internet and Grid Energie",
+          "sub3": "- Gedecentraliseerd en Gratis -"
       },
       "section1": {
-        "block-title": "Why Identity is Important",
-        "title": "Developing countries and the Poor"
+        "block-title": "Mijn identiteit is belangrijk",
+        "title": "Ontwikkelende landen en de Armen"
       }
     },
     "en": {
