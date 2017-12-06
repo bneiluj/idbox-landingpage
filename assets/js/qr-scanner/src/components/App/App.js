@@ -44,15 +44,17 @@ class App extends Component {
         />
         {/* Show file upload dialog if in legacy mode */}
         {legacyMode &&
-          <button
-            className='btn btn-cons btn-bordered m-l-20 xs-no-margin'
-            onClick={() => this.refs.scanner.openImageDialog()} // Run QrReader on selected file
-          >
-            Open Image Dialog
-          </button>
+          <div className='text-center'>
+            <button
+              className='btn btn-cons m-t-10 btn-info xs-no-margin'
+              onClick={() => this.refs.scanner.openImageDialog()} // Run QrReader on selected file
+            >
+              Scan Card
+            </button>
+          </div>
         }
         {/* Balance adjusted from Wei to Eth */}
-        <h2>{etcBalance / 1000000000000000000} ETH</h2>
+        <h2 className='m-b-0'>{etcBalance / 1000000000000000000} ETH</h2>
         {/* If the address/balance is loaded without issue, show address */}
         {(!scanningError && !loading && address) &&
           <p>Address: {address}</p>
