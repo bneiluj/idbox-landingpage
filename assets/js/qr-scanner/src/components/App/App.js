@@ -7,7 +7,7 @@ import ethereumAddress from '../../utils/ethereum-address';
 import './App.css';
 import * as scannerActions from '../../actions/scanner';
 
-class App extends Component {
+export class App extends Component { // Component is exported for testing without being connected to Redux
   handleScan = address => {
     // This function handles the event of a scan being processed by the QR reader
 
@@ -44,7 +44,7 @@ class App extends Component {
         />
         {/* Show file upload dialog if in legacy mode */}
         {legacyMode &&
-          <div className='text-center'>
+          <div id='buttonWrap' className='text-center'>
             <button
               className='btn btn-cons m-t-10 btn-info xs-no-margin'
               onClick={() => this.refs.scanner.openImageDialog()} // Run QrReader on selected file
