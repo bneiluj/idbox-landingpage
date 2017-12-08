@@ -20,9 +20,8 @@ export const setEtherBalanceFailure = () => (
   }
 );
 
-export const loadEtherBalance = address => {
-  // This action calls the Etherchain API to get an account balance
-  return {
+export const loadEtherBalance = address => (
+  { // This action calls the Etherchain API to get an account balance
     [RSAA]: {
       endpoint: 'https://etherchain.org/api/account/' + address,
       method: 'GET',
@@ -31,4 +30,4 @@ export const loadEtherBalance = address => {
               types.LOAD_ETHER_BALANCE_FAILURE],
     }
   }
-}
+);

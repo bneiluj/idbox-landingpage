@@ -1,4 +1,4 @@
-import scanner from './scanner.js';
+import scanner from './scanner';
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
