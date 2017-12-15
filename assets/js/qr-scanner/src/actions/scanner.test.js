@@ -1,6 +1,7 @@
 import {RSAA} from 'redux-api-middleware';
 import * as scannerActions from './scanner';
 import * as types from './scanner-types';
+import config from '../config';
 
 describe('>>>A C T I O N --- Test scannerActions', () => {
   it('+++ actionCreator setAddress', () => {
@@ -24,7 +25,7 @@ describe('>>>A C T I O N --- Test scannerActions', () => {
     const loadEtherBalance = scannerActions.loadEtherBalance(newAddress);
     expect(loadEtherBalance).toEqual({
       [RSAA]: {
-        endpoint: 'https://etherchain.org/api/account/' + newAddress,
+        endpoint: 'https://api.etherscan.io/api?module=account&action=balance&tag=latest&apikey=' + config.etherscanAPIKey + '&address=' + newAddress,
         method: 'GET',
         types: [types.LOAD_ETHER_BALANCE_BEGIN,
                 types.LOAD_ETHER_BALANCE_SUCCESS,
