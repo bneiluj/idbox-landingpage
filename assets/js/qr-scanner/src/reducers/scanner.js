@@ -30,8 +30,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        etcBalance: ((action.payload.data.length === 0) ? // Set balance to zero if not set
-          0 : action.payload.data[0].balance
+        etcBalance: (isNaN(action.payload.result) ? // Set balance to zero if not set
+          0 : parseInt(action.payload.result, 10)
         )
       }
     case types.LOAD_ETHER_BALANCE_FAILURE:

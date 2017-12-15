@@ -27,7 +27,7 @@ describe('>>>R E D U C E R --- Test scannerReducer',() => {
     state = scannerReducer(state, {
       type: types.LOAD_ETHER_BALANCE_SUCCESS,
       payload: {
-        data: [{balance: 10}]
+        result: 10
       }
     });
     expect(state).toEqual({loading: false, etcBalance: 10});
