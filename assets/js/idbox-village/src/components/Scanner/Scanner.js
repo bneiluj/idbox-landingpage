@@ -4,10 +4,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import QrReader from 'react-qr-reader';
 import ethereumAddress from '../../utils/ethereum-address';
-import './App.css';
 import * as scannerActions from '../../actions/scanner';
 
-export class App extends Component { // Component is exported for testing without being connected to Redux
+export class Scanner extends Component { // Component is exported for testing without being connected to Redux
   handleScan = address => {
     // This function handles the event of a scan being processed by the QR reader
 
@@ -33,7 +32,7 @@ export class App extends Component { // Component is exported for testing withou
     const {address, etcBalance, scanningError, loading, legacyMode} = this.props;
 
     return (
-      <div className="App">
+      <div>
         {/* QR scanner */}
         <QrReader
           delay={300}
@@ -76,7 +75,7 @@ export class App extends Component { // Component is exported for testing withou
   }
 }
 
-App.propTypes = {
+Scanner.propTypes = {
   address: PropTypes.string.isRequired,
   setAddress: PropTypes.func.isRequired,
   etcBalance: PropTypes.number.isRequired,
@@ -102,4 +101,4 @@ export default connect(
     loadEtherBalance: bindActionCreators(scannerActions.loadEtherBalance, dispatch),
     setEtherBalanceFailure: bindActionCreators(scannerActions.setEtherBalanceFailure, dispatch)
   })
-)(App);
+)(Scanner);

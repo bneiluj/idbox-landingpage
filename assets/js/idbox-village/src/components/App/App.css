@@ -1,0 +1,38 @@
+.App {
+  max-height: 500px; /* This prevents the scanner area from getting too large */
+}
+
+.App-subSection {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  width: 100%;
+}
+
+.App-leftSubSection {
+  margin-right: 0;
+}
+
+.App-rightSubSection {
+  margin-left: 0;
+}
+
+.App-sectionInnerWrapper {
+  max-width: 500px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media only screen and (min-width: 600px) {
+  .App-subSection {
+    width: 45%;
+  }
+
+  .App-leftSubSection {
+    margin-right: 3%;
+  }
+
+  .App-rightSubSection {
+    margin-left: 3%;
+  }
+}
