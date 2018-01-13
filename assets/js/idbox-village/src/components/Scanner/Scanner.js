@@ -5,23 +5,47 @@ import {bindActionCreators} from 'redux';
 import QrReader from 'react-qr-reader';
 import ethereumAddress from '../../utils/ethereum-address';
 import * as scannerActions from '../../actions/scanner';
+import * as identityInfoActions from '../../actions/identityInfo';
+import createVillageContract from '../../utils/villageContract';
+
+// Create an instance of the contract
+const IDBoxVillageContract = createVillageContract();
 
 export class Scanner extends Component { // Component is exported for testing without being connected to Redux
+  callContractPhoneMethod = address => {
+    // This function is used to call the method of the smart contract for fetching the phone number
+
+    const {setPhoneNumber} = this.props;
+    // We now call a method of the smart contract and pass it the ethereum address
+    // NOTE: METHOD NAME BELOW NEEDS TO BE UPDATED ("getPhoneNumber" is a placeholder for the method name)
+    IDBoxVillageContract.methods.getPhoneNumber(address).call().then(phoneNumber => {
+      // Save the newly fetched phone number to redux
+      setPhoneNumber(phoneNumber);
+    }, err => {
+      console.error('There was an error calling the smart contract:');
+      return console.error(err);
+    });
+  }
   handleScan = address => {
     // This function handles the event of a scan being processed by the QR reader
 
-    // Check that the address has changed since the last scan (to prevent
-    // flooding the API with requests)
+    // Check that the address has changed since the last scan (to prevent flooding the API with requests)
     if (address && address.trim() !== this.props.address) {
-      const {setAddress, loadEtherBalance, setEtherBalanceFailure} = this.props;
+      const {setCardScanned, setAddress, loadEtherBalance, setEtherBalanceFailure} = this.props;
       // Check that the address is a valid Ethereum address
       if (ethereumAddress.isAddress(address.trim())) {
+        // Save the scanned ethereum address to redux
         setAddress(address.trim());
+        // Load the user's ether balance using the newly scanned ethereum address
         loadEtherBalance(address.trim()); // Call API to update balance
+        // Now we call a method of the smart contract to get the phone number associated with this ethereum address (if it exists)
+        this.callContractPhoneMethod(address.trim());
       } else {
-        // Mark as failure since address is invalid (error will be shown)
+        // Mark as failure since the address is invalid (error will be shown)
         setEtherBalanceFailure();
       }
+      // Mark card as just scanned (regardless of whether there was an error)
+      setCardScanned(true);
     }
   }
   handleError = () => {
@@ -29,7 +53,7 @@ export class Scanner extends Component { // Component is exported for testing wi
     this.props.setLegacyModeTrue();
   }
   render() {
-    const {address, etcBalance, scanningError, loading, legacyMode} = this.props;
+    const {legacyMode} = this.props;
 
     return (
       <div>
@@ -52,53 +76,33 @@ export class Scanner extends Component { // Component is exported for testing wi
             </button>
           </div>
         }
-        {/* Balance adjusted from Wei to Eth */}
-        <h2 className='m-b-0'>{etcBalance / 1000000000000000000} ETH</h2>
-        {/* If the address/balance is loaded without issue, show address */}
-        {(!scanningError && !loading && address) &&
-          <p>Address: {address}</p>
-        }
-        {/* If no QR code has been scanned, present instruction */}
-        {(!scanningError && !loading && !address) &&
-          <p>Scan card above to see balance</p>
-        }
-        {/* If the code is currently scanning... */}
-        {(!scanningError && loading) &&
-          <p>Scanning...</p>
-        }
-        {/* If there was an error scanning/getting the balance, say so */}
-        {(scanningError) &&
-          <p>There was an error scanning the QR code!</p>
-        }
       </div>
     );
   }
 }
 
 Scanner.propTypes = {
+  setCardScanned: PropTypes.func.isRequired,
+  setPhoneNumber: PropTypes.func.isRequired,
   address: PropTypes.string.isRequired,
   setAddress: PropTypes.func.isRequired,
-  etcBalance: PropTypes.number.isRequired,
-  scanningError: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
   legacyMode: PropTypes.bool.isRequired,
   setLegacyModeTrue: PropTypes.func.isRequired,
   loadEtherBalance: PropTypes.func.isRequired,
-  setEtherBalanceFailure: PropTypes.func.isRequired
+  setEtherBalanceFailure: PropTypes.func.isRequired,
 };
 
 export default connect(
   state => ({
-    address: state.scanner.address,
-    etcBalance: state.scanner.etcBalance,
-    scanningError: state.scanner.scanningError,
-    loading: state.scanner.loading,
+    address: state.identityInfo.address,
     legacyMode: state.scanner.legacyMode
   }),
   dispatch => ({
-    setAddress: bindActionCreators(scannerActions.setAddress, dispatch),
+    setCardScanned: bindActionCreators(identityInfoActions.setCardScanned, dispatch),
+    setPhoneNumber: bindActionCreators(identityInfoActions.setPhoneNumber, dispatch),
+    setAddress: bindActionCreators(identityInfoActions.setAddress, dispatch),
     setLegacyModeTrue: bindActionCreators(scannerActions.setLegacyModeTrue, dispatch),
-    loadEtherBalance: bindActionCreators(scannerActions.loadEtherBalance, dispatch),
-    setEtherBalanceFailure: bindActionCreators(scannerActions.setEtherBalanceFailure, dispatch)
+    loadEtherBalance: bindActionCreators(identityInfoActions.loadEtherBalance, dispatch),
+    setEtherBalanceFailure: bindActionCreators(identityInfoActions.setEtherBalanceFailure, dispatch),
   })
 )(Scanner);

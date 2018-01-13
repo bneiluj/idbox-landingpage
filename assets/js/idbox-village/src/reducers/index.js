@@ -1,10 +1,10 @@
 import scanner from './scanner';
-import textbox from './textbox';
+import identityInfo from './identityInfo';
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
   scanner,
-  textbox
+  identityInfo
 });
 
 export default rootReducer;
