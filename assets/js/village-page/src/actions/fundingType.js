@@ -1,5 +1,5 @@
 // import {RSAA} from 'redux-api-middleware';
-import * as types from './fundingTypeSelect-types';
+import * as types from './fundingType-types';
 
 export const setDonateDirectly = donateDirectly => (
   {

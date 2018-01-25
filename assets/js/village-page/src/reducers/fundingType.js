@@ -1,8 +1,8 @@
-import * as types from '../actions/fundingTypeSelect-types';
+import * as types from '../actions/fundingType-types';
 
 const initialState = {
-  donateDirectly: false,
-  financeServices: false
+  donateDirectly: false, // True if the user selected to donate to a village/camp directly
+  financeServices: false // True if the user selected to finance services in a village/camp
 };
 
 export default (state = initialState, action) => {

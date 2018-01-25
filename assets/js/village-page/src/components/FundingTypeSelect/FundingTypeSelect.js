@@ -1,17 +1,21 @@
+/*
+ * This component is used to pick the method of funding (direct or services)
+ */
+
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import './FundingTypeSelect.css';
-import * as fundingTypeSelectActions from '../../actions/fundingTypeSelect';
+import * as fundingTypeActions from '../../actions/fundingType';
 
 export class FundingTypeSelect extends Component { // Component is exported for testing without being connected to Redux
   render() {
     const {setDonateDirectly, setFinanceServices} = this.props;
 
     return (
-      <div className="FundingTypeSelect m-t-50 m-b-50 clearfix">
+      <div className="FundingTypeSelect">
         {/* Donate Directly */}
         <div className="col-sm-6">
           <div className="bg-master-lightest FundingTypeSelect-innerButtonWrap">
@@ -37,7 +41,7 @@ FundingTypeSelect.propTypes = {
 export default connect(
   null,
   dispatch => ({
-    setDonateDirectly: bindActionCreators(fundingTypeSelectActions.setDonateDirectly, dispatch),
-    setFinanceServices: bindActionCreators(fundingTypeSelectActions.setFinanceServices, dispatch)
+    setDonateDirectly: bindActionCreators(fundingTypeActions.setDonateDirectly, dispatch),
+    setFinanceServices: bindActionCreators(fundingTypeActions.setFinanceServices, dispatch)
   })
 )(FundingTypeSelect);

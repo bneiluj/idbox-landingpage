@@ -1,0 +1,11 @@
+.CountriesSelect-listWrap {
+  padding-top: 10px;
+}
+
+.CountriesSelect-ul {
+  list-style: none;
+}
+
+.CountriesSelect-ul li {
+    margin: 5px 0;
+}
