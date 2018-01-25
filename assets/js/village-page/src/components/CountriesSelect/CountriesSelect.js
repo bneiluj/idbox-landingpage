@@ -15,12 +15,12 @@ export class CountriesSelect extends Component { // Component is exported for te
     const {countries, setSelectedCountry} = this.props;
 
     return (
-      <div className="CountriesSelect">
-        <div className="CountriesSelect-listWrap col-sm-6 bg-master-lightest">
+      <div>
+        <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
           <h2>Countries</h2>
-          <ul className="CountriesSelect-ul">
+          <ul className="no-style">
             {countries.map((name, i) => ( // Loop over all countries
-              <li key={i}><Link to="/VillageSelect" onClick={() => setSelectedCountry(name)}>{name}</Link></li>
+              <li className="m-t-5 m-b-5" key={i}><Link to="/VillageSelect" onClick={() => setSelectedCountry(name)}>{name}</Link></li>
             ))}
           </ul>
         </div>

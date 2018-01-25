@@ -15,16 +15,16 @@ export class FundingTypeSelect extends Component { // Component is exported for 
     const {setDonateDirectly, setFinanceServices} = this.props;
 
     return (
-      <div className="FundingTypeSelect">
+      <div>
         {/* Donate Directly */}
         <div className="col-sm-6">
-          <div className="bg-master-lightest FundingTypeSelect-innerButtonWrap">
+          <div className="bg-master-lightest full-width p-t-100 p-b-100 center-margin text-center">
             <Link to="/CountriesSelect" onClick={() => setDonateDirectly(true)}><h2>Donate Directly</h2></Link>
           </div>
         </div>
         {/* Finance Services */}
         <div className="col-sm-6">
-          <div className="bg-master-lightest FundingTypeSelect-innerButtonWrap">
+          <div className="bg-master-lightest full-width p-t-100 p-b-100 center-margin text-center">
             <Link to="/ServicesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
           </div>
         </div>

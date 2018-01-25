@@ -12,7 +12,7 @@ export default class App extends Component {
   render() {
     return (
       <Router history={this.history}>
-        <div className="App m-t-50 m-b-50 clearfix">
+        <div className="m-t-50 m-b-50 clearfix">
           {/* FundingTypeSelect is used to pick the method of funding (direct or services) */}
           <Route exact path="/FundingTypeSelect" component={FundingTypeSelect} />
           {/* ServicesSelect is used to pick the service the user would like to finance */}

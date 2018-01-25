@@ -15,12 +15,12 @@ export class VillageSelect extends Component { // Component is exported for test
     const {villages, setSelectedVillage} = this.props;
 
     return (
-      <div className="VillageSelect">
-        <div className="VillageSelect-listWrap col-sm-6 bg-master-lightest">
+      <div>
+        <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
           <h2>Countries</h2>
-          <ul className="VillageSelect-ul">
+          <ul className="no-style">
             {Object.keys(villages).map((name, i) => ( // Loop over all villages
-              <li key={i}><Link to="/SendDialog" onClick={() => setSelectedVillage(name)}>{name}</Link></li>
+              <li className="m-t-5 m-b-5" key={i}><Link to="/SendDialog" onClick={() => setSelectedVillage(name)}>{name}</Link></li>
             ))}
           </ul>
         </div>

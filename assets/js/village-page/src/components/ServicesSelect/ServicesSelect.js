@@ -16,12 +16,12 @@ export class ServicesSelect extends Component { // Component is exported for tes
 
     const services = ['Power', 'Food', 'Water', 'Internet', 'Medical']; // A hard-coded list of available services
     return (
-      <div className="ServicesSelect">
-        <div className="ServicesSelect-listWrap col-sm-6 bg-master-lightest">
+      <div>
+        <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
           <h2>Services</h2>
-          <ul className="ServicesSelect-ul">
+          <ul className="no-style">
             {services.map((name, i) => ( // Loop over the available services
-              <li key={i}><Link to="/CountriesSelect" onClick={() => setSelectedService(name)}>{name}</Link></li>
+              <li className="m-t-5 m-b-5" key={i}><Link to="/CountriesSelect" onClick={() => setSelectedService(name)}>{name}</Link></li>
             ))}
           </ul>
         </div>
