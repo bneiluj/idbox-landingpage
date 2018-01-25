@@ -15,13 +15,13 @@ export class FundingTypeSelect extends Component { // Component is exported for 
         {/* Donate Directly */}
         <div className="col-sm-6">
           <div className="bg-master-lightest FundingTypeSelect-innerButtonWrap">
-            <Link to="/countries" onClick={() => setDonateDirectly(true)}><h2>Donate Directly</h2></Link>
+            <Link to="/CountriesSelect" onClick={() => setDonateDirectly(true)}><h2>Donate Directly</h2></Link>
           </div>
         </div>
         {/* Finance Services */}
         <div className="col-sm-6">
           <div className="bg-master-lightest FundingTypeSelect-innerButtonWrap">
-            <Link to="/services" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
+            <Link to="/ServicesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
           </div>
         </div>
       </div>
