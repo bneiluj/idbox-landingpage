@@ -9,17 +9,18 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import './CountriesSelect.css';
 import * as countriesAndVillagesActions from '../../actions/countriesAndVillages';
+import countries from '../contants/countries.json';
 
 export class CountriesSelect extends Component { // Component is exported for testing without being connected to Redux
   render() {
-    const {countries, setSelectedCountry} = this.props;
+    const {setSelectedCountry} = this.props;
 
     return (
       <div>
         <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
           <h2>Countries</h2>
           <ul className="no-style">
-            {countries.map((name, i) => ( // Loop over all countries
+            {Object.keys(countries).map((name, i) => ( // Loop over all countries
               <li className="m-t-5 m-b-5" key={i}><Link to="/VillageSelect" onClick={() => setSelectedCountry(name)}>{name}</Link></li>
             ))}
           </ul>
@@ -30,14 +31,11 @@ export class CountriesSelect extends Component { // Component is exported for te
 }
 
 CountriesSelect.propTypes = {
-  countries: PropTypes.array.isRequired,
   setSelectedCountry: PropTypes.func.isRequired
 };
 
 export default connect(
-  state => ({
-    countries: state.countriesAndVillages.countries
-  }),
+  null,
   dispatch => ({
     setSelectedCountry: bindActionCreators(countriesAndVillagesActions.setSelectedCountry, dispatch)
   })
