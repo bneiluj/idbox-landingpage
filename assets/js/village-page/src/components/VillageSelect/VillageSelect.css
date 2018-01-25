@@ -1,0 +1,11 @@
+.VillageSelect-listWrap {
+  padding-top: 10px;
+}
+
+.VillageSelect-ul {
+  list-style: none;
+}
+
+.VillageSelect-ul li {
+    margin: 5px 0;
+}

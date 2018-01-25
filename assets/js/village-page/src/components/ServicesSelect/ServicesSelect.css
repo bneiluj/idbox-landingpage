@@ -1,0 +1,11 @@
+.ServicesSelect-listWrap {
+  padding-top: 10px;
+}
+
+.ServicesSelect-ul {
+  list-style: none;
+}
+
+.ServicesSelect-ul li {
+    margin: 5px 0;
+}

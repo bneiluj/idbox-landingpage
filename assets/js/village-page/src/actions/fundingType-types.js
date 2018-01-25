@@ -1,0 +1,2 @@
+export const SET_DONATE_DIRECTLY = 'fundingType/SET_DONATE_DIRECTLY';
+export const SET_FINANCE_SERVICES = 'fundingType/SET_FINANCE_SERVICES';
