@@ -1,0 +1,56 @@
+{
+  "Papua New Guinea": {
+    "location": {
+      "lalaura": {
+        "type": "village",
+        "population": 1000,
+        "women": 480,
+        "children": 300,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      },
+      "kupiano": {
+        "population": 2000,
+        "type": "refugee",
+        "women": 1290,
+        "children": 587,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      },
+      "gea": {
+        "population": 23400,
+        "type": "refugee",
+        "women": 17800,
+        "children": 3450,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      }
+    }
+  },
+  "Jordan": {
+    "location": {
+      "Za’atari Refugee camp": {
+        "population": 2454,
+        "type": "refugee",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      }
+    }
+  },
+  "Kenya": {
+    "location": {
+      "Wote": {
+        "population": 58,
+        "type": "village",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      },
+      "Emali": {
+        "population": 42,
+        "type": "village",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61"
+      }
+    }
+  }
+}
