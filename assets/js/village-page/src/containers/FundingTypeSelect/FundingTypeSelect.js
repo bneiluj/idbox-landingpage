@@ -25,7 +25,7 @@ export class FundingTypeSelect extends Component { // Component is exported for 
         {/* Finance Services */}
         <div className="col-sm-6">
           <div className="bg-master-lightest full-width p-t-100 p-b-100 center-margin text-center">
-            <Link to="/ServicesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
+            <Link to="/CountriesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
           </div>
         </div>
       </div>

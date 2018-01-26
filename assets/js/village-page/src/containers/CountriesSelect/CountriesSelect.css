@@ -1,0 +1,8 @@
+.CountriesSelect-displayFlex {
+  display: flex;
+  min-height: 400px;
+}
+
+.CountriesSelect-childrenFullHeight > * {
+  height: 100%;
+}
