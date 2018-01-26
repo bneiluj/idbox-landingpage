@@ -15,8 +15,8 @@ export class ServicesSelect extends Component { // Component is exported for tes
     const {setSelectedServiceData, selectedVillageData} = this.props;
 
     return (
-      <div>
-        <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
+      <div className="col-sm-6 col-sm-offset-3 bg-master-lightest no-padding">
+        <div className="m-l-20 m-r-20 m-t-20 m-b-20">
           <h2>Services</h2>
           <ul className="no-style">
             {selectedVillageData.services.map((service, i) => ( // Loop over the available services

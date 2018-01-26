@@ -10,7 +10,7 @@ import {GOOGLE_MAPS_API_KEY} from '../../constants';
 
 export class IdboxMap extends Component { // Component is exported for testing without being connected to Redux
   render() {
-    const {markerLocations} = this.props;
+    const {markerLocations, zoom} = this.props;
 
     // We get the center point between all of the marker points, that way all of the markers will be visible
     const centerPoint = geolib.getCenter(markerLocations);
@@ -18,7 +18,7 @@ export class IdboxMap extends Component { // Component is exported for testing w
       <div className="full-height">
         <Map
           google={this.props.google}
-          zoom={2} // 2 = very far zoomed out (world view)
+          zoom={zoom}
           initialCenter={{lat: centerPoint.latitude, lng: centerPoint.longitude}}
           className='relative full-height full-width'
         >
@@ -37,7 +37,8 @@ export class IdboxMap extends Component { // Component is exported for testing w
 }
 
 IdboxMap.propTypes = {
-  markerLocations: PropTypes.array.isRequired
+  markerLocations: PropTypes.array.isRequired,
+  zoom: PropTypes.number.isRequired
 };
 
 export default GoogleApiWrapper({

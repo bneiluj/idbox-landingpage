@@ -14,45 +14,73 @@ import {IdboxMap} from '../../components';
 
 export class CountriesSelect extends Component { // Component is exported for testing without being connected to Redux
   componentWillMount() {
-    const {setCountries, countries} = this.props;
+    const {setCountries, countries, addCountryGeoLocation, countryGeoLocations} = this.props;
+
+    const countryNames = Object.keys(countriesJson);
 
     // If we haven't got the countries data yet, we need to fetch it...
     if (countries.length === 0) {
       // NOTE: In the future, this will be a call to the SC/swarm (hard-coded JSON for now)
-      setCountries(Object.keys(countriesJson));
+      setCountries(countryNames);
+    }
+
+    // If we haven't got the country geo locations (lat/long for each country) yet, we need to fetch them...
+    if (countryGeoLocations.length === 0) {
+      // First we loop over all of the countries
+      for (let i = 0; i < countryNames.length; ++i) {
+        addCountryGeoLocation(countryNames[i]);
+      }
     }
   }
   handleCountrySelect = name => { // This function handles the event of the user clicking on a country from the list
-    const {setVillages, setSelectedCountryName} = this.props;
+    const {setVillages, setSelectedCountryName, setVillageGeoLocations} = this.props;
 
     // Set the name of the selected village
     setSelectedCountryName(name);
 
     // Set the villages/camps located in the selected country
     // NOTE: In the future, this will be a call to the SC/swarm (hard-coded JSON for now)
-    setVillages(Object.keys(countriesJson[name]['location']));
+    setVillages(Object.keys(countriesJson[name].location));
+
+    // We need to fetch the village geo locations (lat/long for each village)...
+    const villageGeoLocations = [];
+    const villageNames = Object.keys(countriesJson[name].location);
+    // console.log(villageNames);
+    for (let i = 0; i < villageNames.length; ++i) { // First we loop over all of the countries
+      // console.log(countriesJson[name].location);
+      const coordinates = countriesJson[name].location[villageNames[i]].coordinates.split(',');
+      const lat = parseFloat(coordinates[0].trim(), 10);
+      const lng = parseFloat(coordinates[1].trim(), 10);
+      villageGeoLocations.push({
+        name: villageNames[i],
+        lat,
+        lng
+      });
+    }
+    setVillageGeoLocations(villageGeoLocations); // Save village locations in Redux
   }
   render() {
-    const {countries} = this.props;
+    const {countries, countryGeoLocations} = this.props;
 
-    // NOTE: This data needs to come from the JSON (this is temporary)
-    const countryLocations = [
-      {name: 'Papua New Guinea', lat: -4.343673, lng: 152.268784},
-      {name: 'Jordan', lat: 30.5852, lng: 36.2384},
-      {name: 'Kenya', lat: 0.0236, lng: 37.9062}
-    ];
     return (
       <div className="CountriesSelect-displayFlex full-height">
-        <div className="col-sm-5 bg-master-lightest m-t-10">
-          <h2>Countries</h2>
-          <ul className="no-style">
-            {countries.map((name, i) => ( // Loop over all countries
-              <li className="m-t-5 m-b-5" key={i}><Link to="/VillageSelect" onClick={() => this.handleCountrySelect(name)}>{name}</Link></li>
-            ))}
-          </ul>
+        <div className="col-sm-5 bg-master-lightest no-padding">
+          <div className="m-l-20 m-r-20 m-t-20 m-b-20">
+            <h2>Countries</h2>
+            <ul className="no-style">
+              {countries.map((name, i) => ( // Loop over all countries
+                <li className="m-t-5 m-b-5" key={i}><Link to="/VillageSelect" onClick={() => this.handleCountrySelect(name)}>{name}</Link></li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div className="col-sm-7 p-t-10 CountriesSelect-childrenFullHeight">
-          <IdboxMap markerLocations={countryLocations} />
+        <div className="col-sm-7 no-padding CountriesSelect-childrenFullHeight">
+          {/* NOTE: We have to wait to load the map, because if we load it before all of the data
+            *       is in, the center point won't be calculated correctly (the map won't be centered)
+            */}
+          {(countryGeoLocations.length === Object.keys(countriesJson).length) &&
+            <IdboxMap markerLocations={countryGeoLocations} zoom={2} />
+          }
         </div>
       </div>
     );
@@ -63,16 +91,22 @@ CountriesSelect.propTypes = {
   setSelectedCountryName: PropTypes.func.isRequired,
   setCountries: PropTypes.func.isRequired,
   countries: PropTypes.array.isRequired,
-  setVillages: PropTypes.func.isRequired
+  setVillages: PropTypes.func.isRequired,
+  addCountryGeoLocation: PropTypes.func.isRequired,
+  countryGeoLocations: PropTypes.array.isRequired,
+  setVillageGeoLocations: PropTypes.func.isRequired
 };
 
 export default connect(
   state => ({
-    countries: state.countriesAndVillages.countries
+    countries: state.countriesAndVillages.countries,
+    countryGeoLocations: state.countriesAndVillages.countryGeoLocations
   }),
   dispatch => ({
     setSelectedCountryName: bindActionCreators(countriesAndVillagesActions.setSelectedCountryName, dispatch),
     setCountries: bindActionCreators(countriesAndVillagesActions.setCountries, dispatch),
-    setVillages: bindActionCreators(countriesAndVillagesActions.setVillages, dispatch)
+    setVillages: bindActionCreators(countriesAndVillagesActions.setVillages, dispatch),
+    addCountryGeoLocation: bindActionCreators(countriesAndVillagesActions.addCountryGeoLocation, dispatch),
+    setVillageGeoLocations: bindActionCreators(countriesAndVillagesActions.setVillageGeoLocations, dispatch)
   })
 )(CountriesSelect);

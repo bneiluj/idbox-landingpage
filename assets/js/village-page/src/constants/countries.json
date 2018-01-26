@@ -35,7 +35,7 @@
       "kupiano": {
         "population": 2000,
         "type": "refugee",
-        "coordinates": "32.293751, 36.327672",
+        "coordinates": "-10.0752, 148.1844",
         "women": 1290,
         "children": 587,
         "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
@@ -66,7 +66,7 @@
       "gea": {
         "population": 23400,
         "type": "refugee",
-        "coordinates": "32.293751, 36.327672",
+        "coordinates": "-10.367, 149.517",
         "women": 17800,
         "children": 3450,
         "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
@@ -98,7 +98,7 @@
   },
   "Jordan": {
     "location": {
-      "Za’atari Refugee camp": {
+      "Za'atari Refugee camp": {
         "population": 2454,
         "type": "refugee",
         "coordinates": "32.293751, 36.327672",
@@ -136,7 +136,7 @@
       "Wote": {
         "population": 58,
         "type": "village",
-        "coordinates": "32.293751, 36.327672",
+        "coordinates": "-1.7833, 37.6167",
         "women": 28,
         "children": 12,
         "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
@@ -167,7 +167,7 @@
       "Emali": {
         "population": 42,
         "type": "village",
-        "coordinates": "32.293751, 36.327672",
+        "coordinates": "-2.082, 37.4731",
         "women": 28,
         "children": 12,
         "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",

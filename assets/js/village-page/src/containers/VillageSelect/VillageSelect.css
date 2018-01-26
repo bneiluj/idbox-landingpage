@@ -1,0 +1,8 @@
+.VillageSelect-displayFlex {
+  display: flex;
+  min-height: 400px;
+}
+
+.VillageSelect-childrenFullHeight > * {
+  height: 100%;
+}

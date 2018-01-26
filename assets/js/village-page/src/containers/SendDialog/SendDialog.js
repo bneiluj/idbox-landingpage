@@ -21,8 +21,8 @@ export class SendDialog extends Component { // Component is exported for testing
     const {donateDirectly, financeServices, selectedServiceData, selectedCountryName, selectedVillageName, selectedVillageData, ethAmount, setEthAmount, etherUSDRate} = this.props;
 
     return (
-      <div>
-        <div className="col-sm-6 col-sm-offset-3 bg-master-lightest p-t-10">
+      <div className="col-sm-6 col-sm-offset-3 bg-master-lightest no-padding">
+        <div className="m-l-20 m-r-20 m-t-20 m-b-20">
           {/* Summarize the user's action (depending on funding type) */}
           {donateDirectly &&
             <h2>Send ETH to {selectedVillageName} in {selectedCountryName}</h2>
