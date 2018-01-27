@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
 import geolib from 'geolib';
 import {GOOGLE_MAPS_API_KEY} from '../../constants';
+import './IdboxMap.css';
 
 export class IdboxMap extends Component { // Component is exported for testing without being connected to Redux
   render() {
@@ -15,12 +16,12 @@ export class IdboxMap extends Component { // Component is exported for testing w
     // We get the center point between all of the marker points, that way all of the markers will be visible
     const centerPoint = geolib.getCenter(markerLocations);
     return (
-      <div className="full-height">
+      <div className="full-height IdboxMap-minHeight IdboxMap-childrenDefaultHeight">
         <Map
           google={this.props.google}
           zoom={zoom}
           initialCenter={{lat: centerPoint.latitude, lng: centerPoint.longitude}}
-          className='relative full-height full-width'
+          className='relative full-height full-width IdboxMap-minHeight'
         >
           {markerLocations.map((marker, i) => ( // Loop over all of the markers and display them
             <Marker

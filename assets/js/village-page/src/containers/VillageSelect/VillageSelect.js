@@ -27,10 +27,10 @@ export class VillageSelect extends Component { // Component is exported for test
     const {villages, financeServices, villageGeoLocations} = this.props;
 
     return (
-      <div className="VillageSelect-displayFlex full-height">
-        <div className="col-sm-5 bg-master-lightest no-padding">
-          <div className="m-l-20 m-r-20 m-t-20 m-b-20">
-            <h2>Villages &amp; Camps</h2>
+      <div className="VillageSelect-minHeightList full-height">
+        <div className="VillageSelect-minHeightList col-sm-5 bg-master-lightest no-padding">
+          <div className="p-l-20 p-r-20 p-t-20 p-b-20">
+            <h2 className="m-l-0 m-r-0 m-t-0 m-b-0 p-b-10">Villages &amp; Camps</h2>
             <ul className="no-style">
               {villages.map((name, i) => ( // Loop over all villages
                 // NOTE: We link to the ServicesSelect route next if the user picked services and
@@ -40,7 +40,7 @@ export class VillageSelect extends Component { // Component is exported for test
             </ul>
           </div>
         </div>
-        <div className="col-sm-7 no-padding VillageSelect-childrenFullHeight">
+        <div className="col-sm-7 no-padding VillageSelect-minHeight VillageSelect-childrenMinHeight">
           {(villageGeoLocations.length > 0) &&
             <IdboxMap markerLocations={villageGeoLocations} zoom={7} />
           }

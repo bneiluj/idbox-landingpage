@@ -63,10 +63,10 @@ export class CountriesSelect extends Component { // Component is exported for te
     const {countries, countryGeoLocations} = this.props;
 
     return (
-      <div className="CountriesSelect-displayFlex full-height">
-        <div className="col-sm-5 bg-master-lightest no-padding">
-          <div className="m-l-20 m-r-20 m-t-20 m-b-20">
-            <h2>Countries</h2>
+      <div className="CountriesSelect-minHeightList full-height">
+        <div className="CountriesSelect-minHeightList col-sm-5 bg-master-lightest no-padding">
+          <div className="p-l-20 p-r-20 p-t-20 p-b-20">
+            <h2 className="m-l-0 m-r-0 m-t-0 m-b-0 p-b-10">Countries</h2>
             <ul className="no-style">
               {countries.map((name, i) => ( // Loop over all countries
                 <li className="m-t-5 m-b-5" key={i}><Link to="/VillageSelect" onClick={() => this.handleCountrySelect(name)}>{name}</Link></li>
@@ -74,7 +74,7 @@ export class CountriesSelect extends Component { // Component is exported for te
             </ul>
           </div>
         </div>
-        <div className="col-sm-7 no-padding CountriesSelect-childrenFullHeight">
+        <div className="col-sm-7 no-padding CountriesSelect-minHeight CountriesSelect-childrenMinHeight">
           {/* NOTE: We have to wait to load the map, because if we load it before all of the data
             *       is in, the center point won't be calculated correctly (the map won't be centered)
             */}
