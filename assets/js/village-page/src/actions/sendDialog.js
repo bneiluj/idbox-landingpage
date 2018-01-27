@@ -19,3 +19,24 @@ export const loadEtherUSDRate = () => (
     }
   }
 );
+
+export const setTransactionProcessing = transactionProcessing => (
+  {
+    type: types.SET_TRANSACTION_PROCESSING,
+    transactionProcessing
+  }
+);
+
+export const setTransactionHash = transactionHash => (
+  {
+    type: types.SET_TRANSACTION_HASH,
+    transactionHash
+  }
+);
+
+export const setTransactionError = transactionError => (
+  {
+    type: types.SET_TRANSACTION_ERROR,
+    transactionError
+  }
+);
