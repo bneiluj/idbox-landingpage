@@ -58,14 +58,14 @@ export class SendDialog extends Component { // Component is exported for testing
            transactionProcessing, transactionHash, transactionError} = this.props;
 
     return (
-      <div className="col-sm-6 col-sm-offset-3 bg-master-lightest no-padding">
-        <div className="m-l-20 m-r-20 m-t-20 m-b-20">
+      <div className="col-sm-8 col-sm-offset-2 bg-master-lightest no-padding">
+        <div className="p-l-20 p-r-20 p-t-20 p-b-20">
           {/* Summarize the user's action (depending on funding type) */}
           {donateDirectly &&
-            <h2>Send ETH to {selectedVillageName} in {selectedCountryName}</h2>
+            <h2 className="m-t-0">Send ETH to {selectedVillageName} in {selectedCountryName}</h2>
           }
           {financeServices &&
-            <h2>Send {selectedServiceData.name} to {selectedVillageName} in {selectedCountryName}</h2>
+            <h2 className="m-t-0">Send {selectedServiceData.name} to {selectedVillageName} in {selectedCountryName}</h2>
           }
           <ul className="no-style">
             {/* Show the address for the user to deposit the funds into */}
