@@ -11,6 +11,9 @@ import {Link} from 'react-router-dom';
 import './SendDialog.css';
 import * as sendDialogActions from '../../actions/sendDialog';
 import getWeb3 from '../../utils/getWeb3';
+import web3Exists from '../../utils/web3Exists';
+
+const web3Enabled = web3Exists();
 
 export class SendDialog extends Component { // Component is exported for testing without being connected to Redux
   componentWillMount() {
@@ -92,7 +95,10 @@ export class SendDialog extends Component { // Component is exported for testing
             {transactionError &&
               <li className="m-t-5 m-b-5 text-danger semi-bold">There was an error confirming your transaction!</li>
             }
-            {(ethAmount > 0) && // Only show the send button if they're willing to donate more than zero
+            {(!web3Enabled) && // Explain that the browser has to be web3 enabled if it's not
+              <li className="m-t-5 m-b-5 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" href="https://metamask.io/">install MetaMask</a> to donate!</li>
+            }
+            {(web3Enabled && ethAmount > 0) && // Only show the send button if they're willing to donate more than zero (and they have a web3 enabled browser)
               <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>Send</button>
             }
           </ul>
