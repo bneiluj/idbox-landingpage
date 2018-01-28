@@ -14,10 +14,15 @@ import getWeb3 from '../../utils/getWeb3';
 
 export class SendDialog extends Component { // Component is exported for testing without being connected to Redux
   componentWillMount() {
-    const {loadEtherUSDRate} = this.props;
+    const {loadEtherUSDRate, setTransactionProcessing, setTransactionError, setTransactionHash} = this.props;
 
     // When this component first mounts, we need to load in the current ETH price in USD
     loadEtherUSDRate();
+
+    // Mark all sendDialog flags to default values (in cause this is the second donation being made)
+    setTransactionProcessing(false); // Mark the transaction as not currently processing
+    setTransactionError(false); // Mark transaction as not having had an error yet
+    setTransactionHash(''); // Save the transaction hash (as an empty string) to Redux since there is no transaction yet
   }
   handleSend = () => {
     const {selectedVillageData, ethAmount, setTransactionProcessing, setTransactionHash, setTransactionError} = this.props;
