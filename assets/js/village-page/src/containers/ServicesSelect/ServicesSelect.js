@@ -23,6 +23,10 @@ export class ServicesSelect extends Component { // Component is exported for tes
               <li className="m-t-5 m-b-5" key={i}><Link to="/SendDialog" onClick={() => setSelectedServiceData(service)}>{service.name}</Link></li>
             ))}
           </ul>
+          {/* Back button */}
+          <div className="p-b-10">
+            <Link to="/VillageSelect">&#8592; Back</Link>
+          </div>
         </div>
       </div>
     );

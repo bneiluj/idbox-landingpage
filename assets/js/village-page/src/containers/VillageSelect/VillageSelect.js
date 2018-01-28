@@ -38,6 +38,10 @@ export class VillageSelect extends Component { // Component is exported for test
                 <li className="m-t-5 m-b-5" key={i}><Link to={financeServices ? "/ServicesSelect" : "/SendDialog"} onClick={() => this.handleVillageSelect(name)}>{name}</Link></li>
               ))}
             </ul>
+            {/* Back button */}
+            <div className="p-b-10">
+              <Link to="/CountriesSelect">&#8592; Back</Link>
+            </div>
           </div>
         </div>
         <div className="col-sm-7 no-padding VillageSelect-minHeight VillageSelect-childrenMinHeight">

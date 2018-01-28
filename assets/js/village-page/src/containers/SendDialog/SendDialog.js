@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import NumericInput from 'react-numeric-input';
+import {Link} from 'react-router-dom';
 import './SendDialog.css';
 import * as sendDialogActions from '../../actions/sendDialog';
 import getWeb3 from '../../utils/getWeb3';
@@ -90,6 +91,10 @@ export class SendDialog extends Component { // Component is exported for testing
               <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>Send</button>
             }
           </ul>
+          {/* Back button */}
+          <div className="p-b-10">
+            <Link to={donateDirectly ? '/VillageSelect' : '/ServicesSelect'}>&#8592; Back</Link>
+          </div>
         </div>
       </div>
     );
