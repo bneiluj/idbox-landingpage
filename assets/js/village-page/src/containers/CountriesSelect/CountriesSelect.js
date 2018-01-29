@@ -77,10 +77,10 @@ export class CountriesSelect extends Component { // Component is exported for te
         <div className="CountriesSelect-minHeightList col-sm-5 no-padding relative">
           <div className="p-l-20 p-r-20 p-t-20 p-b-20">
             {donateDirectly &&
-              <h5 class="block-title hint-text no-margin">Donate Directly</h5>
+              <h5 className="block-title hint-text no-margin">Donate Directly</h5>
             }
             {(!donateDirectly) &&
-              <h5 class="block-title hint-text no-margin">Finance Services</h5>
+              <h5 className="block-title hint-text no-margin">Finance Services</h5>
             }
             <h2 className="m-l-0 m-r-0 m-t-0 m-b-0 p-b-10">Countries</h2>
             <ul className="no-style p-b-5">

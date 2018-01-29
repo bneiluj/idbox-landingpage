@@ -9,7 +9,7 @@ import './App.css';
 export default class App extends Component {
   ComponentWillMount() {
     getWeb3(Web3 => {
-      const idBoxContract = new Web3.eth.Contract(IdBoxABI, '0x8A3ABfB1A42311BcAdb627494Af22f507C86e1FC');
+      const idBoxContract = new Web3.eth.Contract(IdBoxABI, '0x676f9bb76cc6b14be31d6c31b3712eb4cd4d665a');
       idBoxContract.events.NewIdboxId((error, event) => {
         console.log(error);
         console.log(event);
