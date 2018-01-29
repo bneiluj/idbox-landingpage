@@ -1,0 +1,200 @@
+{
+  "Papua New Guinea": {
+    "location": {
+      "lalaura": {
+        "type": "village",
+        "coordinates": "32.293751, 36.327672",
+        "population": 1000,
+        "women": 480,
+        "children": 300,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "weather station",
+            "cost": 1234,
+            "currency": "$",
+            "currencyDesc":  "per station",
+            "description": ""
+          },
+          {
+            "name": "fresh water",
+            "cost": 10,
+            "currency": "$",
+            "currencyDesc":  "per litter",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      },
+      "kupiano": {
+        "population": 2000,
+        "type": "refugee",
+        "coordinates": "-10.0752, 148.1844",
+        "women": 1290,
+        "children": 587,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "first aid kit",
+            "cost": 98,
+            "currency": "$",
+            "currencyDesc":  "per kit",
+            "description": ""
+          },
+          {
+            "name": "books",
+            "cost": 5,
+            "currency": "$",
+            "currencyDesc":  "per book",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      },
+      "gea": {
+        "population": 23400,
+        "type": "refugee",
+        "coordinates": "-10.367, 149.517",
+        "women": 17800,
+        "children": 3450,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "weather station",
+            "cost": 1234,
+            "currency": "$",
+            "currencyDesc":  "per station",
+            "description": ""
+          },
+          {
+            "name": "fresh water",
+            "cost": 10,
+            "currency": "$",
+            "currencyDesc":  "per litter",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      }
+    }
+  },
+  "Jordan": {
+    "location": {
+      "Za'atari Refugee camp": {
+        "population": 2454,
+        "type": "refugee",
+        "coordinates": "32.293751, 36.327672",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "weather station",
+            "cost": 1234,
+            "currency": "$",
+            "currencyDesc":  "per station",
+            "description": ""
+          },
+          {
+            "name": "fresh water",
+            "cost": 10,
+            "currency": "$",
+            "currencyDesc":  "per litter",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      }
+    }
+  },
+  "Kenya": {
+    "location": {
+      "Wote": {
+        "population": 58,
+        "type": "village",
+        "coordinates": "-1.7833, 37.6167",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "weather station",
+            "cost": 1234,
+            "currency": "$",
+            "currencyDesc":  "per station",
+            "description": ""
+          },
+          {
+            "name": "fresh water",
+            "cost": 10,
+            "currency": "$",
+            "currencyDesc":  "per litter",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      },
+      "Emali": {
+        "population": 42,
+        "type": "village",
+        "coordinates": "-2.082, 37.4731",
+        "women": 28,
+        "children": 12,
+        "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
+        "services": [
+          {
+            "name": "seed",
+            "cost": 56,
+            "currency": "$",
+            "currencyDesc":  "per pack",
+            "description": ""
+          },
+          {
+            "name": "fresh water",
+            "cost": 10,
+            "currency": "$",
+            "currencyDesc":  "per litter",
+            "description": ""
+          },
+          {
+            "name": "solar panels",
+            "cost": 85,
+            "currency": "$",
+            "currencyDesc":  "per 50 watts",
+            "description": ""
+          }
+        ]
+      }
+    }
+  }
+}

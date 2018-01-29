@@ -1,0 +1,1 @@
+export const SET_SELECTED_SERVICE_DATA = 'services/SET_SELECTED_SERVICE_DATA';

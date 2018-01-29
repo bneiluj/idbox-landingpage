@@ -1,0 +1,17 @@
+.CountriesSelect-minHeight {
+  min-height: 400px;
+}
+
+.CountriesSelect-minHeightList {
+  min-height: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .CountriesSelect-minHeightList {
+    min-height: 400px;
+  }
+}
+
+.CountriesSelect-childrenFullHeight > * {
+  height: 100%;
+}

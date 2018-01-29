@@ -1,0 +1,25 @@
+.VillageSelect-minHeight {
+  min-height: 400px;
+}
+
+.VillageSelect-minHeightList {
+  min-height: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .VillageSelect-minHeightList {
+    min-height: 400px;
+  }
+}
+
+.VillageSelect-childrenFullHeight > * {
+  height: 100%;
+}
+
+.VillageSelect-popIcon {
+  width: 25px;
+}
+
+.VillageSelect-womenChildrenIcon {
+  width: 20px;
+}
