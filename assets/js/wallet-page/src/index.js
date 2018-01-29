@@ -5,8 +5,9 @@ import App from './components/App/App';
 import store from './store';
 import registerServiceWorker from './registerServiceWorker';
 
+// Note: we change the deployment div depending on if we're in development or production
 ReactDOM.render(
   <Provider store={store}><App /></Provider>,
-  document.getElementById('rootQRScanner')
+  document.getElementById((!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? 'root' : 'rootQRScanner') // If in production render App in a special div on page with ID "rootQRScanner"
 );
 registerServiceWorker();
