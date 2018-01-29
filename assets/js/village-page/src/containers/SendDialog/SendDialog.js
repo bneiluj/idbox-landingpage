@@ -92,7 +92,7 @@ export class SendDialog extends Component { // Component is exported for testing
                 </li>
               }
               {financeServices &&
-                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {Math.round((selectedServiceData.cost / etherUSDRate) * 100000000) / 100000000} (${selectedServiceData.cost})</li>
+                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {Math.round((selectedServiceData.cost / etherUSDRate) * 100000000) / 100000000} ETH (${selectedServiceData.cost})</li>
               }
               {financeServices &&
                 <li className="m-t-5 m-b-5">Amount of units: {Math.floor((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
