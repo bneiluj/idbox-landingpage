@@ -8,22 +8,25 @@ import * as scannerActions from '../../actions/scanner';
 import * as identityInfoActions from '../../actions/identityInfo';
 import createVillageContract from '../../utils/villageContract';
 
-// Create an instance of the contract
-const IDBoxVillageContract = createVillageContract();
-
 export class Scanner extends Component { // Component is exported for testing without being connected to Redux
   callContractPhoneMethod = address => {
     // This function is used to call the method of the smart contract for fetching the phone number
 
     const {setPhoneNumber} = this.props;
-    // We now call a method of the smart contract and pass it the ethereum address
-    // NOTE: METHOD NAME BELOW NEEDS TO BE UPDATED ("getPhoneNumber" is a placeholder for the method name)
-    IDBoxVillageContract.methods.getPhoneNumber(address).call().then(phoneNumber => {
-      // Save the newly fetched phone number to redux
-      setPhoneNumber(phoneNumber);
+
+    // Create an instance of the contract
+    createVillageContract().then(IDBoxVillageContract => {
+      // We now call a method of the smart contract and pass it the ethereum address
+      IDBoxVillageContract.methods.findIdboxUserByWalletPK(address).call().then(result => {
+        const phoneNumber = result[0]; // The phone is the second field returned
+        // Save the newly fetched phone number to redux
+        setPhoneNumber(phoneNumber);
+      }, err => {
+        console.error('There was an error calling the smart contract:');
+        return console.error(err);
+      });
     }, err => {
-      console.error('There was an error calling the smart contract:');
-      return console.error(err);
+      console.error(err);
     });
   }
   handleScan = address => {
