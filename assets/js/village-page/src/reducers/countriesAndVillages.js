@@ -1,40 +1,66 @@
 import * as types from '../actions/countriesAndVillages-types';
 
 const initialState = {
-  selectedCountry: '', // The country currently selected by the user
-  selectedVillage: '', // The village currently selected by the user
-  countries: ['Papua New Guinea', 'Kenya'], // Note: countries are hard-coded for now, but will need to come from smart-contract in the future...
-  villages: { // Note: villages data is hard-coded for now, but will need to come from smart-contract in the future...
-    'Alepa': {
-      address: '0x17Bc58b788808DaB201a9A90817fF3C168BF3d61', // The address to deposit into
-      population: 100 // The population of the village/camp
-    },
-    'Bagibobi': {
-      address: '0x7963043CCBBb40a108c6a62f0cbE79e45dc4342f',
-      population: 250
-    },
-    'Kore': {
-      address: '0x80E29AcB842498fE6591F020bd82766DCe619D43',
-      population: 75
-    },
-    'Waiori': {
-      address: '0x8D3bDFFDECffc3a5aa1faa04163DfDC366DA049D',
-      population: 900
-    }
-  }
+  selectedCountryName: '', // The country currently selected by the user
+  selectedVillageName: '', // The name of the village currently selected by the user
+  selectedVillageData: {}, // The data associated with the village currently selected by the user, from the hard-coded JSON (will be from smart-contract in the future...)
+  countries: [], // The list of countries loaded from hard-coded JSON (will be from smart-contract in the future...)
+  villages: [], // The list of villages in the country loaded from hard-coded JSON (will be from smart-contract in the future...)
+  countryGeoLocations: [], // A list of country lat/long location objects (e.g.: [{lat: x, lng: y}, {lat: x, lng: y}, ...])
+  villageGeoLocations: [] // A list of village lat/long location objects (e.g.: [{lat: x, lng: y}, {lat: x, lng: y}, ...])
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_SELECTED_COUNTRY:
+    case types.SET_SELECTED_COUNTRY_NAME:
       return {
         ...state,
-        selectedCountry: action.selectedCountry
+        selectedCountryName: action.selectedCountryName
       };
-    case types.SET_SELECTED_VILLAGE:
+    case types.SET_SELECTED_VILLAGE_NAME:
       return {
         ...state,
-        selectedVillage: action.selectedVillage
+        selectedVillageName: action.selectedVillageName
+      };
+    case types.SET_SELECTED_VILLAGE_DATA:
+      return {
+        ...state,
+        selectedVillageData: action.selectedVillageData
+      };
+    case types.SET_COUNTRIES:
+      return {
+        ...state,
+        countries: action.countries
+      };
+    case types.SET_VILLAGES:
+      return {
+        ...state,
+        villages: action.villages
+      };
+    // case types.ADD_COUNTRY_GEO_LOCATION_BEGIN:
+    case types.ADD_COUNTRY_GEO_LOCATION_SUCCESS:
+      // If the Google Maps API request didn't work, don't add the geo location...
+      if (action.payload.results === undefined || action.payload.results.length === 0 || action.payload.results[0].address_components === undefined || action.payload.results[0].address_components.length === 0 || action.payload.results[0].address_components[0].long_name === undefined ||
+          action.payload.results[0].address_components[0].long_name.length === 0 || action.payload.results[0].geometry.location === undefined || isNaN(action.payload.results[0].geometry.location.lat) || isNaN(action.payload.results[0].geometry.location.lng)) {
+        return state;
+      }
+      // The needed values are defined, so we can add it to the countryGeoLocations field...
+      return {
+        ...state,
+        countryGeoLocations: [
+          ...(state.countryGeoLocations),
+          {
+            name: action.payload.results[0].address_components[0].long_name,
+            lat: action.payload.results[0].geometry.location.lat,
+            lng: action.payload.results[0].geometry.location.lng
+          }
+        ]
+      };
+    // case types.ADD_COUNTRY_GEO_LOCATION_FAILURE:
+    case types.SET_VILLAGE_GEO_LOCATIONS:
+      return {
+        ...state,
+        villageGeoLocations: action.villageGeoLocations
       };
     default:
       return state;

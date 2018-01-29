@@ -17,15 +17,15 @@ export class FundingTypeSelect extends Component { // Component is exported for 
     return (
       <div>
         {/* Donate Directly */}
-        <div className="col-sm-6">
+        <div className="col-sm-6 m-b-30">
           <div className="bg-master-lightest full-width p-t-100 p-b-100 center-margin text-center">
             <Link to="/CountriesSelect" onClick={() => setDonateDirectly(true)}><h2>Donate Directly</h2></Link>
           </div>
         </div>
         {/* Finance Services */}
-        <div className="col-sm-6">
+        <div className="col-sm-6 m-b-30">
           <div className="bg-master-lightest full-width p-t-100 p-b-100 center-margin text-center">
-            <Link to="/ServicesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
+            <Link to="/CountriesSelect" onClick={() => setFinanceServices(true)}><h2>Finance Services</h2></Link>
           </div>
         </div>
       </div>

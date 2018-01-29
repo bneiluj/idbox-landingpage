@@ -10,12 +10,14 @@ export default (state = initialState, action) => {
     case types.SET_DONATE_DIRECTLY:
       return {
         ...state,
-        donateDirectly: action.donateDirectly
+        donateDirectly: action.donateDirectly,
+        financeServices: !action.donateDirectly // Ensure only one of the flags is true at a given time
       };
     case types.SET_FINANCE_SERVICES:
       return {
         ...state,
-        financeServices: action.financeServices
+        financeServices: action.financeServices,
+        donateDirectly: !action.financeServices // Ensure only one of the flags is true at a given time
       };
     default:
       return state;

@@ -1,0 +1,7 @@
+.IdboxMap-minHeight {
+  min-height: 400px;
+}
+
+.IdboxMap-childrenDefaultHeight  > * {
+  height: auto; /* Overwrite parent styles (see CountriesSelect.css and VillageSelect.css) */
+}

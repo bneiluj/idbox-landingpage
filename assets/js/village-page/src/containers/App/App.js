@@ -2,9 +2,21 @@ import React, { Component } from 'react';
 import {Router, Route} from 'react-router-dom';
 import createMemoryHistory from 'history/createMemoryHistory';
 import {FundingTypeSelect, ServicesSelect, CountriesSelect, VillageSelect, SendDialog} from '../';
+import getWeb3 from '../../utils/getWeb3';
+import IdBoxABI from '../../constants/contracts/Idbox.json';
 import './App.css';
 
 export default class App extends Component {
+  ComponentWillMount() {
+    getWeb3(Web3 => {
+      const idBoxContract = new Web3.eth.Contract(IdBoxABI, '0x676f9bb76cc6b14be31d6c31b3712eb4cd4d665a');
+      idBoxContract.events.NewIdboxId((error, event) => {
+        console.log(error);
+        console.log(event);
+        // Need to connect to redux to update population (and maybe highlight pin?) ...
+      })
+    });
+  }
   // We create a memory history to prevent the URL from changing when we move between different routes
   history = createMemoryHistory({
     initialEntries: ['/FundingTypeSelect'] // The initial URL in the history stack

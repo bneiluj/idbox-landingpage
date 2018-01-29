@@ -1,2 +1,9 @@
-export const SET_SELECTED_COUNTRY = 'countriesAndVillages/SET_SELECTED_COUNTRY';
-export const SET_SELECTED_VILLAGE = 'countriesAndVillages/SET_SELECTED_VILLAGE';
+export const SET_SELECTED_COUNTRY_NAME = 'countriesAndVillages/SET_SELECTED_COUNTRY_NAME';
+export const SET_SELECTED_VILLAGE_NAME = 'countriesAndVillages/SET_SELECTED_VILLAGE_NAME';
+export const SET_SELECTED_VILLAGE_DATA = 'countriesAndVillages/SET_SELECTED_VILLAGE_DATA';
+export const SET_COUNTRIES = 'countriesAndVillages/SET_COUNTRIES';
+export const SET_VILLAGES = 'countriesAndVillages/SET_VILLAGES';
+export const ADD_COUNTRY_GEO_LOCATION_BEGIN = 'countriesAndVillages/ADD_COUNTRY_GEO_LOCATION_BEGIN';
+export const ADD_COUNTRY_GEO_LOCATION_SUCCESS = 'countriesAndVillages/ADD_COUNTRY_GEO_LOCATION_SUCCESS';
+export const ADD_COUNTRY_GEO_LOCATION_FAILURE = 'countriesAndVillages/ADD_COUNTRY_GEO_LOCATION_FAILURE';
+export const SET_VILLAGE_GEO_LOCATIONS = 'countriesAndVillages/SET_VILLAGE_GEO_LOCATIONS';
