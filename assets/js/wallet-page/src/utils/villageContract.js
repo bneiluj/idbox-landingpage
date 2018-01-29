@@ -4,7 +4,7 @@
  */
 
 import getWeb3 from './getWeb3'; // Import web3 helper from utils folder
-import IdBoxABI from '../constants/contracts/Idbox.json';
+let IdBoxABI = require('../constants/contracts/Idbox.json');
 
 export default () => new Promise((resolve, reject) => {
   return getWeb3().then(Web3 => {
