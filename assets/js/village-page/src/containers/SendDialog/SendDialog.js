@@ -86,13 +86,16 @@ export class SendDialog extends Component { // Component is exported for testing
               {/* Show the user a quantitative measurement of the impact of their donation */}
               {/* NOTE: all of these measurements are just contrived examples, we need to update these with real measurements... */}
               {donateDirectly &&
-                <li className="m-t-5 m-b-5">Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH</li>
+                <li className="m-t-5 m-b-5">
+                  Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH 
+                  (${Math.round((ethAmount / selectedVillageData.population) * etherUSDRate * 100) / 100})
+                </li>
               }
               {financeServices &&
-                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {selectedServiceData.currency}{selectedServiceData.cost}</li>
+                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {Math.round((selectedServiceData.cost / etherUSDRate) * 100000000) / 100000000} (${selectedServiceData.cost})</li>
               }
               {financeServices &&
-                <li className="m-t-5 m-b-5">Amount of units: {Math.round((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
+                <li className="m-t-5 m-b-5">Amount of units: {Math.floor((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
               }
               {transactionProcessing &&
                 <li className="m-t-5 m-b-5 text-primary semi-bold">Please wait while your transaction gets confirmed...</li>
