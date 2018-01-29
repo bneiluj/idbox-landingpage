@@ -15,3 +15,11 @@
 .VillageSelect-childrenFullHeight > * {
   height: 100%;
 }
+
+.VillageSelect-popIcon {
+  width: 25px;
+}
+
+.VillageSelect-womenChildrenIcon {
+  width: 20px;
+}

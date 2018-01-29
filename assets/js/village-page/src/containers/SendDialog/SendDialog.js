@@ -12,6 +12,7 @@ import './SendDialog.css';
 import * as sendDialogActions from '../../actions/sendDialog';
 import getWeb3 from '../../utils/getWeb3';
 import web3Exists from '../../utils/web3Exists';
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 
 const web3Enabled = web3Exists();
 
@@ -61,50 +62,54 @@ export class SendDialog extends Component { // Component is exported for testing
            transactionProcessing, transactionHash, transactionError} = this.props;
 
     return (
-      <div className="col-sm-8 col-sm-offset-2 bg-master-lightest no-padding">
-        <div className="p-l-20 p-r-20 p-t-20 p-b-20">
+      <div className="col-sm-12 relative">
+        <div className="col-sm-6 p-b-20">
           {/* Summarize the user's action (depending on funding type) */}
           {donateDirectly &&
-            <h2 className="m-t-0">Send ETH to {selectedVillageName} in {selectedCountryName}</h2>
+            <h2 className="m-t-0">Send ETH to {capitalizeFirstLetter(selectedVillageName)} in {selectedCountryName}</h2>
           }
           {financeServices &&
-            <h2 className="m-t-0">Send {selectedServiceData.name} to {selectedVillageName} in {selectedCountryName}</h2>
+            <h2 className="m-t-0">Send {selectedServiceData.name} to {capitalizeFirstLetter(selectedVillageName)} in {selectedCountryName}</h2>
           }
-          <ul className="no-style">
-            {/* Show the address for the user to deposit the funds into */}
-            <li className="m-t-5 m-b-5">Deposit address: {selectedVillageData.address}</li>
-            {/* Provide an input for the user to input the donation amount */}
-            <li className="m-t-5 m-b-5">Amount: <NumericInput min={0} precision={8} step={0.1} value={ethAmount} onChange={setEthAmount} /></li>
-            {/* Show the user a quantitative measurement of the impact of their donation */}
-            {/* NOTE: all of these measurements are just contrived examples, we need to update these with real measurements... */}
-            {donateDirectly &&
-              <li className="m-t-5 m-b-5">Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH</li>
-            }
-            {financeServices &&
-              <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {selectedServiceData.currency}{selectedServiceData.cost}</li>
-            }
-            {financeServices &&
-              <li className="m-t-5 m-b-5">Amount of units: {Math.round((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
-            }
-            {transactionProcessing &&
-              <li className="m-t-5 m-b-5 text-primary semi-bold">Please wait while your transaction gets confirmed...</li>
-            }
-            {(transactionHash.length > 0) &&
-              <li className="m-t-5 m-b-5 text-success semi-bold">Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank">transaction</a> has been confirmed.</li>
-            }
-            {transactionError &&
-              <li className="m-t-5 m-b-5 text-danger semi-bold">There was an error confirming your transaction!</li>
-            }
-            {(!web3Enabled) && // Explain that the browser has to be web3 enabled if it's not
-              <li className="m-t-5 m-b-5 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" href="https://metamask.io/">install MetaMask</a> to donate!</li>
-            }
-            {(web3Enabled && ethAmount > 0) && // Only show the send button if they're willing to donate more than zero (and they have a web3 enabled browser)
-              <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>Send</button>
-            }
-          </ul>
           {/* Back button */}
-          <div className="p-b-10">
+          <div className="p-t-20 pull-bottom">
             <Link to={donateDirectly ? '/VillageSelect' : '/ServicesSelect'}>&#8592; Back</Link>
+          </div>
+        </div>
+        <div className="col-sm-6 bg-master-lightest md-p-l-0 md-p-r-0">
+          <div className="p-l-20 p-r-20 p-t-20 p-b-20">
+            <ul className="no-style">
+              {/* Show the address for the user to deposit the funds into */}
+              <li className="m-t-5 m-b-5 overflow-ellipsis">Deposit address: {selectedVillageData.address}</li>
+              {/* Provide an input for the user to input the donation amount */}
+              <li className="m-t-5 m-b-5">Amount: <NumericInput min={0} precision={8} step={0.1} value={ethAmount} onChange={setEthAmount} /></li>
+              {/* Show the user a quantitative measurement of the impact of their donation */}
+              {/* NOTE: all of these measurements are just contrived examples, we need to update these with real measurements... */}
+              {donateDirectly &&
+                <li className="m-t-5 m-b-5">Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH</li>
+              }
+              {financeServices &&
+                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {selectedServiceData.currency}{selectedServiceData.cost}</li>
+              }
+              {financeServices &&
+                <li className="m-t-5 m-b-5">Amount of units: {Math.round((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
+              }
+              {transactionProcessing &&
+                <li className="m-t-5 m-b-5 text-primary semi-bold">Please wait while your transaction gets confirmed...</li>
+              }
+              {(transactionHash.length > 0) &&
+                <li className="m-t-5 m-b-5 text-success semi-bold">Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank" rel="noopener noreferrer">transaction</a> has been confirmed.</li>
+              }
+              {transactionError &&
+                <li className="m-t-5 m-b-5 text-danger semi-bold">There was an error confirming your transaction!</li>
+              }
+              {(!web3Enabled) && // Explain that the browser has to be web3 enabled if it's not
+                <li className="m-t-5 m-b-5 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">install MetaMask</a> to donate!</li>
+              }
+              {(web3Enabled && ethAmount > 0) && // Only show the send button if they're willing to donate more than zero (and they have a web3 enabled browser)
+                <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>Send</button>
+              }
+            </ul>
           </div>
         </div>
       </div>
