@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Router, Route} from 'react-router-dom';
 import createMemoryHistory from 'history/createMemoryHistory';
 import {FundingTypeSelect, ServicesSelect, CountriesSelect, VillageSelect, SendDialog} from '../';
 import getWeb3 from '../../utils/getWeb3';
-import IdBoxABI from '../../constants/contracts/Idbox.json';
+// import IdBoxABI from '../../constants/contracts/Idbox.json';
+import * as sendDialogActions from '../../actions/sendDialog';
 import './App.css';
 
-export default class App extends Component {
-  ComponentWillMount() {
+export class App extends Component {
+  componentWillMount() {
     getWeb3(Web3 => {
-      const idBoxContract = new Web3.eth.Contract(IdBoxABI, '0x676f9bb76cc6b14be31d6c31b3712eb4cd4d665a');
-      idBoxContract.events.NewIdboxId((error, event) => {
-        console.log(error);
-        console.log(event);
-        // Need to connect to redux to update population (and maybe highlight pin?) ...
-      })
+      const {setNetworkType} = this.props;
+
+      // Subscribe to smart-contract "NewIdboxId" event (and update population on change)
+      // const idBoxContract = new Web3.eth.Contract(IdBoxABI, '0x676f9bb76cc6b14be31d6c31b3712eb4cd4d665a');
+      // idBoxContract.events.NewIdboxId((error, event) => {
+      //   console.log(error);
+      //   console.log(event);
+      //   // Need to connect to redux to update population (and maybe highlight pin?) ...
+      // });
+
+      // Save Ethereum network type to Redux (for later use in SendDialog)
+      Web3.eth.net.getNetworkType().then(setNetworkType);
     });
   }
   // We create a memory history to prevent the URL from changing when we move between different routes
@@ -40,3 +50,14 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  setNetworkType: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  dispatch => ({
+    setNetworkType: bindActionCreators(sendDialogActions.setNetworkType, dispatch)
+  })
+)(App);
