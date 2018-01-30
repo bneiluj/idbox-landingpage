@@ -5,7 +5,8 @@ const initialState = {
   etherUSDRate: 0, // The value of one ETH in USD
   transactionProcessing: false, // This is only true while the transaction is unconfirmed
   transactionHash: '', // If transactionHash.length > 0, then it means the transaction was successfully confirmed
-  transactionError: false
+  transactionError: false, // If there was an error processing the transaction
+  networkType: '' // The type of the Ethereum network that is connected through MetaMask (e.g. Rinkeby)
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +39,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         transactionError: action.transactionError
+      };
+    case types.SET_NETWORK_TYPE:
+      return {
+        ...state,
+        networkType: action.networkType
       };
     default:
       return state;

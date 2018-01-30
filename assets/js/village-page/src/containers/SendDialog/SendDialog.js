@@ -59,8 +59,9 @@ export class SendDialog extends Component { // Component is exported for testing
   render() {
     const {donateDirectly, financeServices, selectedServiceData, selectedCountryName,
            selectedVillageName, selectedVillageData, ethAmount, setEthAmount, etherUSDRate,
-           transactionProcessing, transactionHash, transactionError} = this.props;
+           transactionProcessing, transactionHash, transactionError, networkType} = this.props;
 
+    const connectedToRinkeby = (networkType.toLowerCase() === 'rinkeby');
     return (
       <div className="col-sm-12 relative">
         <div className="col-sm-6 p-b-20">
@@ -79,35 +80,65 @@ export class SendDialog extends Component { // Component is exported for testing
         <div className="col-sm-6 bg-master-lightest md-p-l-0 md-p-r-0">
           <div className="p-l-20 p-r-20 p-t-20 p-b-20">
             <ul className="no-style">
-              {/* Show the address for the user to deposit the funds into */}
-              <li className="m-t-5 m-b-5 overflow-ellipsis">Deposit address: {selectedVillageData.address}</li>
+              {/* Show the address for the user to deposit the funds into (if they're on the Rinkeby testnet, otherwise show error)
+                * NOTE: We don't even bother showing them the deposit address or Rinkeby network error if their browser isn't web3 enabled!
+                */}
+              {(!web3Enabled) && // Explain that the browser has to be web3 enabled if it's not
+                <li className="m-t-5 m-b-5 text-danger semi-bold">
+                  Your browser is not Web3 enabled, please <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">install MetaMask</a> to donate.
+                </li>
+              }
+              {(connectedToRinkeby && web3Enabled) &&
+                <li className="m-t-5 m-b-5 overflow-ellipsis">
+                  Deposit address: {selectedVillageData.address}
+                </li>
+              }
+              {(!connectedToRinkeby && web3Enabled) &&
+                <li className="m-t-5 m-b-5 text-danger semi-bold">
+                  Please <a target="_blank" rel="noopener noreferrer" href="https://ethereum.stackexchange.com/a/23732/18312">connect to the Rinkeby Test Network through MetaMask</a> to donate.
+                </li>
+              }
               {/* Provide an input for the user to input the donation amount */}
-              <li className="m-t-5 m-b-5">Amount: <NumericInput min={0} precision={8} step={0.1} value={ethAmount} onChange={setEthAmount} /></li>
+              <li className="m-t-5 m-b-5">
+                Amount: <NumericInput min={0} precision={8} step={0.1} value={ethAmount} onChange={setEthAmount} />
+              </li>
               {/* Show the user a quantitative measurement of the impact of their donation */}
               {/* NOTE: all of these measurements are just contrived examples, we need to update these with real measurements... */}
               {donateDirectly &&
-                <li className="m-t-5 m-b-5">Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH</li>
+                <li className="m-t-5 m-b-5">
+                  Per person: {Math.round((ethAmount / selectedVillageData.population) * 100000000) / 100000000} ETH 
+                  (${Math.round((ethAmount / selectedVillageData.population) * etherUSDRate * 100) / 100})
+                </li>
               }
               {financeServices &&
-                <li className="m-t-5 m-b-5">Cost {selectedServiceData.currencyDesc}: {selectedServiceData.currency}{selectedServiceData.cost}</li>
+                <li className="m-t-5 m-b-5">
+                  Cost {selectedServiceData.currencyDesc}: {Math.round((selectedServiceData.cost / etherUSDRate) * 100000000) / 100000000} ETH (${selectedServiceData.cost})
+                </li>
               }
               {financeServices &&
-                <li className="m-t-5 m-b-5">Amount of units: {Math.round((ethAmount * etherUSDRate) / selectedServiceData.cost)}</li>
+                <li className="m-t-5 m-b-5">
+                  Amount of units: {Math.floor((ethAmount * etherUSDRate) / selectedServiceData.cost)}
+                </li>
               }
               {transactionProcessing &&
-                <li className="m-t-5 m-b-5 text-primary semi-bold">Please wait while your transaction gets confirmed...</li>
+                <li className="m-t-5 m-b-5 text-primary semi-bold">
+                  Please wait while your transaction gets confirmed...
+                </li>
               }
               {(transactionHash.length > 0) &&
-                <li className="m-t-5 m-b-5 text-success semi-bold">Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank" rel="noopener noreferrer">transaction</a> has been confirmed.</li>
+                <li className="m-t-5 m-b-5 text-success semi-bold">
+                  Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank" rel="noopener noreferrer">transaction</a> has been confirmed.
+                </li>
               }
               {transactionError &&
-                <li className="m-t-5 m-b-5 text-danger semi-bold">There was an error confirming your transaction!</li>
+                <li className="m-t-5 m-b-5 text-danger semi-bold">
+                  There was an error confirming your transaction!
+                </li>
               }
-              {(!web3Enabled) && // Explain that the browser has to be web3 enabled if it's not
-                <li className="m-t-5 m-b-5 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">install MetaMask</a> to donate!</li>
-              }
-              {(web3Enabled && ethAmount > 0) && // Only show the send button if they're willing to donate more than zero (and they have a web3 enabled browser)
-                <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>Send</button>
+              {(web3Enabled && connectedToRinkeby && ethAmount > 0) && // Only show the send button if they're willing to donate more than zero (and they have a web3 enabled browser connected to Rinkeby)
+                <button onClick={this.handleSend} className='btn btn-cons m-t-10 btn-info xs-no-margin'>
+                  Send
+                </button>
               }
             </ul>
           </div>
@@ -133,7 +164,8 @@ SendDialog.propTypes = {
   transactionProcessing: PropTypes.bool.isRequired,
   transactionHash: PropTypes.string.isRequired,
   setTransactionError: PropTypes.func.isRequired,
-  transactionError: PropTypes.bool.isRequired
+  transactionError: PropTypes.bool.isRequired,
+  networkType: PropTypes.string.isRequired // (This is set in the App container, that way it is already loaded)
 };
 
 export default connect(
@@ -148,7 +180,8 @@ export default connect(
     etherUSDRate: state.sendDialog.etherUSDRate,
     transactionProcessing: state.sendDialog.transactionProcessing,
     transactionHash: state.sendDialog.transactionHash,
-    transactionError: state.sendDialog.transactionError
+    transactionError: state.sendDialog.transactionError,
+    networkType: state.sendDialog.networkType
   }),
   dispatch => ({
     setEthAmount: bindActionCreators(sendDialogActions.setEthAmount, dispatch),

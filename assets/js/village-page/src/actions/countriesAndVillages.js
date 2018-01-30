@@ -39,7 +39,7 @@ export const setVillages = villages => (
 export const addCountryGeoLocation = countryName => (
   { // This action calls the Google Maps API to get a country's coordinates from its name
     [RSAA]: {
-      endpoint: 'http://maps.google.com/maps/api/geocode/json?address=' + encodeURIComponent(countryName),
+      endpoint: 'https://maps.google.com/maps/api/geocode/json?address=' + encodeURIComponent(countryName),
       method: 'GET',
       types: [types.ADD_COUNTRY_GEO_LOCATION_BEGIN,
               types.ADD_COUNTRY_GEO_LOCATION_SUCCESS,

@@ -40,3 +40,10 @@ export const setTransactionError = transactionError => (
     transactionError
   }
 );
+
+export const setNetworkType = networkType => (
+  {
+    type: types.SET_NETWORK_TYPE,
+    networkType
+  }
+);
