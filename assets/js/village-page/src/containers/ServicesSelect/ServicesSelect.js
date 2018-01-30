@@ -47,6 +47,9 @@ export class ServicesSelect extends Component { // Component is exported for tes
               );
             })}
           </div>
+          <div className="p-b-10">
+            Services are provided via <a target="_blank" rel="noopener noreferrer" href="http://www.flyingcarpet.network/">Flying Carpet</a>.
+          </div>
           {/* Back button */}
           <div>
             <Link to="/VillageSelect">&#8592; Back</Link>
