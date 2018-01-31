@@ -30,9 +30,9 @@ export const setEtherBalanceFailure = () => (
 );
 
 export const loadEtherBalance = address => (
-  { // This action calls the Etherchain API to get an account balance
+  { // This action calls the Etherchain Rinkeby (testnet) API to get an account balance
     [RSAA]: {
-      endpoint: 'https://api.etherscan.io/api?module=account&action=balance&tag=latest&apikey=' + config.etherscanAPIKey + '&address=' + address,
+      endpoint: 'https://rinkeby.etherscan.io/api?module=account&action=balance&tag=latest&apikey=' + config.etherscanAPIKey + '&address=' + address,
       method: 'GET',
       types: [types.LOAD_ETHER_BALANCE_BEGIN,
               types.LOAD_ETHER_BALANCE_SUCCESS,

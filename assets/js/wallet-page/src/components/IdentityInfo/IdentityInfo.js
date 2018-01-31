@@ -93,7 +93,11 @@ export class IdentityInfo extends Component { // Component is exported for testi
           }
           {/* Show an error if the browser isn't web3 enabled */}
           {(!scanningError && !web3Enabled) &&
-            <li className="m-t-5 m-b-5 md-p-l-0 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">install MetaMask</a> to donate!</li>
+            <li className="m-t-5 m-b-5 md-p-l-0 text-danger semi-bold">Your browser is not Web3 enabled, please <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">install MetaMask</a> to send ETH!</li>
+          }
+          {/* Show an error if MetaMask isn't connected to the Rinkeby testnet */}
+          {(!scanningError && !connectedToRinkeby && web3Enabled) &&
+            <li className="m-t-5 m-b-5 md-p-l-0 text-danger semi-bold">Please <a target="_blank" rel="noopener noreferrer" href="https://ethereum.stackexchange.com/a/23732/18312">connect to the Rinkeby Test Network through MetaMask</a> to send ETH.</li>
           }
           {/* Show a MetaMask-integrated donation input and button (if there are no errors and the user has MetaMask and is on the Rinkeby network) */}
           {(!scanningError && web3Enabled && connectedToRinkeby && showAddress) &&
