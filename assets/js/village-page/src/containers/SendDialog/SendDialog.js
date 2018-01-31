@@ -33,27 +33,39 @@ export class SendDialog extends Component { // Component is exported for testing
 
     // Send the transaction
     getWeb3(Web3 => {
+      setTransactionProcessing(true); // Mark the transaction as currently processing
+      setTransactionError(false); // Mark transaction as not having had an error
+      setTransactionHash(''); // Save the transaction hash (as an empty string) to Redux while the transaction gets confrimed
+      // Send the transaction
       Web3.eth.sendTransaction({
         from: Web3.eth.defaultAccount,
         to: selectedVillageData.address,
         value: ethAmount * 1000000000000000000 // In Wei
-      }, () => {
-        setTransactionProcessing(true); // Mark the transaction as currently processing
-        setTransactionError(false); // Mark transaction as not having had an error
-        setTransactionHash(''); // Save the transaction hash (as an empty string) to Redux while the transaction gets confrimed
-      }).on('confirmation', (confirmationNumber, receipt) => {
-        // If we've waited 7 confirmations, we can be confident about the transaction...
-        if (confirmationNumber >= 7) {
-          setTransactionHash(receipt.transactionHash); // Save the transaction hash to Redux
+      }, (err, transactionHash) => {
+        if (err) {
+          setTransactionProcessing(false); // Mark the transaction as no longer processing
+          setTransactionError(true); // Mark transaction as having had an error
+          // Now, we print the errors to the developer console...
+          console.error('There was an error confirming the transaction:');
+          console.error(err);
+        } else {
+          setTransactionHash(transactionHash); // Save the transaction hash to Redux
           setTransactionProcessing(false); // Mark the transaction as no longer processing
         }
-      }).on('error', err => {
-        setTransactionProcessing(false); // Mark the transaction as no longer processing
-        setTransactionError(true); // Mark transaction as having had an error
-        // Now, we print the errors to the developer console...
-        console.error('There was an error confirming the transaction:');
-        console.error(err);
       });
+      // }).on('confirmation', (confirmationNumber, receipt) => {
+      //   // If we've waited 7 confirmations, we can be confident about the transaction...
+      //   if (confirmationNumber >= 7) {
+      //     setTransactionHash(receipt.transactionHash); // Save the transaction hash to Redux
+      //     setTransactionProcessing(false); // Mark the transaction as no longer processing
+      //   }
+      // }).on('error', err => {
+      //   setTransactionProcessing(false); // Mark the transaction as no longer processing
+      //   setTransactionError(true); // Mark transaction as having had an error
+      //   // Now, we print the errors to the developer console...
+      //   console.error('There was an error confirming the transaction:');
+      //   console.error(err);
+      // });
     });
   }
   render() {
@@ -61,7 +73,9 @@ export class SendDialog extends Component { // Component is exported for testing
            selectedVillageName, selectedVillageData, ethAmount, setEthAmount, etherUSDRate,
            transactionProcessing, transactionHash, transactionError, networkType} = this.props;
 
-    const connectedToRinkeby = (networkType.toLowerCase() === 'rinkeby');
+    // For old Web3 v-1.0 implementation:
+    // const connectedToRinkeby = (networkType.toLowerCase() === 'rinkeby');
+    const connectedToRinkeby = (networkType === 4);
     return (
       <div className="col-sm-12 relative">
         <div className="col-sm-6 p-b-20">
@@ -127,7 +141,7 @@ export class SendDialog extends Component { // Component is exported for testing
               }
               {(transactionHash.length > 0) &&
                 <li className="m-t-5 m-b-5 text-success semi-bold">
-                  Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank" rel="noopener noreferrer">transaction</a> has been confirmed.
+                  Thank you! Your <a href={'https://rinkeby.etherscan.io/tx/' + transactionHash} target="_blank" rel="noopener noreferrer">transaction</a> is being processed.
                 </li>
               }
               {transactionError &&
@@ -165,7 +179,7 @@ SendDialog.propTypes = {
   transactionHash: PropTypes.string.isRequired,
   setTransactionError: PropTypes.func.isRequired,
   transactionError: PropTypes.bool.isRequired,
-  networkType: PropTypes.string.isRequired // (This is set in the App container, that way it is already loaded)
+  networkType: PropTypes.number.isRequired // (This is set in the App container, that way it is already loaded)
 };
 
 export default connect(
