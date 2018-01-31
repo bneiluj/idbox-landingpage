@@ -41,6 +41,12 @@ export const loadEtherBalance = address => (
   }
 );
 
+export const setZeroEtherBalance = () => (
+  {
+    type: types.SET_ZERO_ETHER_BALANCE
+  }
+);
+
 export const loadEtherUSDRate = () => (
   { // This action calls the CoinMarketCap API to get the value of one ether in USD
     [RSAA]: {
@@ -69,5 +75,40 @@ export const setPhoneNumber = phoneNumber => (
   {
     type: types.SET_PHONE_NUMBER,
     phoneNumber
+  }
+);
+
+export const setEthAmount = ethAmount => (
+  {
+    type: types.SET_ETH_AMOUNT,
+    ethAmount
+  }
+);
+
+export const setTransactionProcessing = transactionProcessing => (
+  {
+    type: types.SET_TRANSACTION_PROCESSING,
+    transactionProcessing
+  }
+);
+
+export const setTransactionError = transactionError => (
+  {
+    type: types.SET_TRANSACTION_ERROR,
+    transactionError
+  }
+);
+
+export const setTransactionHash = transactionHash => (
+  {
+    type: types.SET_TRANSACTION_HASH,
+    transactionHash
+  }
+);
+
+export const setNetworkType = networkType => (
+  {
+    type: types.SET_NETWORK_TYPE,
+    networkType
   }
 );

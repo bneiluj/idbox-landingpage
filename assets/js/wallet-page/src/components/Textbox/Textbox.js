@@ -12,7 +12,7 @@ export class Textbox extends Component { // Component is exported for testing wi
   handlePhoneChange = phoneNumber => {
     // This function handles the event of the phone number value changing in the text input
 
-    const {setCardScanned, setPhoneNumber, setAddress, loadEtherBalance, setLoading} = this.props;
+    const {setCardScanned, setPhoneNumber, setAddress, loadEtherBalance, setLoading, setZeroEtherBalance} = this.props;
     // Check if the number is a complete and valid phone number
     if (isValidPhoneNumber(phoneNumber)) {
       // Show the "Loading..." text while we fetch the address from the smart contract
@@ -28,14 +28,26 @@ export class Textbox extends Component { // Component is exported for testing wi
           // Load the user's ether balance using the newly fetched ethereum address
           loadEtherBalance(address.trim()); // Call API to update balance
         }, err => {
+          // Save blank address since there was an error
+          setAddress('');
+          setZeroEtherBalance(); 
+          // Emit error
           console.error('There was an error calling the smart contract:');
           return console.error(err);
         });
       }, err => {
-        console.error(err);
+        // Save blank address since there was an error
+        setAddress('');
+        setZeroEtherBalance();
+        // Emit error
+        return console.error(err);
       });
       // Mark card as NOT just scanned (since we just processed the entered phone number, NOT a card)
       setCardScanned(false);
+    } else {
+      // Save blank address since there was an error
+      setAddress('');
+      setZeroEtherBalance();
     }
     // Update redux phoneNumber regardless
     setPhoneNumber(phoneNumber ? phoneNumber : '');
@@ -57,7 +69,8 @@ export class Textbox extends Component { // Component is exported for testing wi
 
 Textbox.propTypes = {
   phoneNumber: PropTypes.string.isRequired,
-  loadEtherBalance: PropTypes.func.isRequired
+  loadEtherBalance: PropTypes.func.isRequired,
+  setZeroEtherBalance: PropTypes.func.isRequired
 };
 
 export default connect(
@@ -69,6 +82,7 @@ export default connect(
     setPhoneNumber: bindActionCreators(identityInfoActions.setPhoneNumber, dispatch),
     setAddress: bindActionCreators(identityInfoActions.setAddress, dispatch),
     setLoading: bindActionCreators(identityInfoActions.setLoading, dispatch),
-    loadEtherBalance: bindActionCreators(identityInfoActions.loadEtherBalance, dispatch)
+    loadEtherBalance: bindActionCreators(identityInfoActions.loadEtherBalance, dispatch),
+    setZeroEtherBalance: bindActionCreators(identityInfoActions.setZeroEtherBalance, dispatch)
   })
 )(Textbox);

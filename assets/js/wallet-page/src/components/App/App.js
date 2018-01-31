@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import './App.css';
 import Scanner from '../Scanner/Scanner';
 import Textbox from '../Textbox/Textbox';
 import IdentityInfo from '../IdentityInfo/IdentityInfo';
+import getWeb3 from '../../utils/getWeb3';
+import * as identityInfoActions from '../../actions/identityInfo';
 
 export class App extends Component { // Component is exported for testing without being connected to Redux
+  componentWillMount() {
+    getWeb3().then(Web3 => {
+      const {setNetworkType} = this.props;
+
+      // Save Ethereum network type to Redux (for later use in SendDialog)
+      Web3.eth.net.getNetworkType().then(setNetworkType);
+    }, err => console.error);
+  }
   render() {
     const {cardScanned, phoneNumber} = this.props;
+
     return (
       <div className="App">
         {/* Scanner wrap */}
@@ -43,7 +55,8 @@ export class App extends Component { // Component is exported for testing withou
 App.propTypes = {
   cardScanned: PropTypes.bool.isRequired,
   address: PropTypes.string.isRequired,
-  phoneNumber: PropTypes.string.isRequired
+  phoneNumber: PropTypes.string.isRequired,
+  setNetworkType: PropTypes.func.isRequired
 };
 
 export default connect(
@@ -52,5 +65,7 @@ export default connect(
     address: state.identityInfo.address,
     phoneNumber: state.identityInfo.phoneNumber
   }),
-  null
+  dispatch => ({
+    setNetworkType: bindActionCreators(identityInfoActions.setNetworkType, dispatch)
+  })
 )(App);

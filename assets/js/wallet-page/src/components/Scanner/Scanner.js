@@ -12,7 +12,7 @@ export class Scanner extends Component { // Component is exported for testing wi
   callContractPhoneMethod = address => {
     // This function is used to call the method of the smart contract for fetching the phone number
 
-    const {setPhoneNumber} = this.props;
+    const {setPhoneNumber, setZeroEtherBalance} = this.props;
 
     // Create an instance of the contract
     createVillageContract().then(IDBoxVillageContract => {
@@ -22,10 +22,18 @@ export class Scanner extends Component { // Component is exported for testing wi
         // Save the newly fetched phone number to redux
         setPhoneNumber(phoneNumber);
       }, err => {
+        // Save blank phone number since there was an error
+        setPhoneNumber('');
+        setZeroEtherBalance();
+        // Emit error
         console.error('There was an error calling the smart contract:');
         return console.error(err);
       });
     }, err => {
+      // Save blank phone number since there was an error
+      setPhoneNumber('');
+      setZeroEtherBalance();
+      // Emit error
       console.error(err);
     });
   }
@@ -93,6 +101,7 @@ Scanner.propTypes = {
   setLegacyModeTrue: PropTypes.func.isRequired,
   loadEtherBalance: PropTypes.func.isRequired,
   setEtherBalanceFailure: PropTypes.func.isRequired,
+  setZeroEtherBalance: PropTypes.func.isRequired
 };
 
 export default connect(
@@ -107,5 +116,6 @@ export default connect(
     setLegacyModeTrue: bindActionCreators(scannerActions.setLegacyModeTrue, dispatch),
     loadEtherBalance: bindActionCreators(identityInfoActions.loadEtherBalance, dispatch),
     setEtherBalanceFailure: bindActionCreators(identityInfoActions.setEtherBalanceFailure, dispatch),
+    setZeroEtherBalance: bindActionCreators(identityInfoActions.setZeroEtherBalance, dispatch)
   })
 )(Scanner);

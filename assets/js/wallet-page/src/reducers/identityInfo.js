@@ -10,7 +10,12 @@ const initialState = {
   USDLocalCurrencyRate: 0, // The value of one USD in the user's local currency
   scanningError: false, // Whether there was an error scanning a QR code
   loading: false, // Whether something is loading (the QR code scanning, the smart contract methods being called, etc.)
-  phoneNumber: '' // The user's phone number
+  phoneNumber: '', // The user's phone number
+  ethAmount: 0, // The amount of ETH the user would like to donate to the address/phone number
+  transactionProcessing: false, // Whether the user's MetaMask transaction is currently processing
+  transactionError: false, // Whether the user's MetaMask transaction encountered an error
+  transactionHash: '', // The returned hash of the user's MetaMask transaction
+  networkType: '' // The type of network that MetaMask is connected to (e.g.: mainnet or Rinkeby)
 };
 
 export default (state = initialState, action) => {
@@ -44,6 +49,11 @@ export default (state = initialState, action) => {
           0 : parseFloat(action.payload.result, 10)
         )
       };
+    case types.SET_ZERO_ETHER_BALANCE:
+      return {
+        ...state,
+        weiBalance: 0
+      };
     case types.LOAD_ETHER_BALANCE_FAILURE:
       return {
         ...state,
@@ -74,6 +84,31 @@ export default (state = initialState, action) => {
         ...state,
         phoneNumber: action.phoneNumber
       };
+    case types.SET_ETH_AMOUNT:
+      return {
+        ...state,
+        ethAmount: action.ethAmount
+      };
+    case types.SET_TRANSACTION_PROCESSING:
+      return {
+        ...state,
+        transactionProcessing: action.transactionProcessing
+      };
+    case types.SET_TRANSACTION_ERROR:
+      return {
+        ...state,
+        transactionError: action.transactionError
+      };
+    case types.SET_TRANSACTION_HASH:
+      return {
+        ...state,
+        transactionHash: action.transactionHash
+      };
+    case types.SET_NETWORK_TYPE:
+      return {
+        ...state,
+        networkType: action.networkType
+      }
     default:
       return state;
   }
