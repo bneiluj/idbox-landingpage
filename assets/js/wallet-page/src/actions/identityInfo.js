@@ -30,14 +30,20 @@ export const setEtherBalanceFailure = () => (
 );
 
 export const loadEtherBalance = address => (
-  { // This action calls the Etherchain API to get an account balance
+  { // This action calls the Etherchain Rinkeby (testnet) API to get an account balance
     [RSAA]: {
-      endpoint: 'https://api.etherscan.io/api?module=account&action=balance&tag=latest&apikey=' + config.etherscanAPIKey + '&address=' + address,
+      endpoint: 'https://rinkeby.etherscan.io/api?module=account&action=balance&tag=latest&apikey=' + config.etherscanAPIKey + '&address=' + address,
       method: 'GET',
       types: [types.LOAD_ETHER_BALANCE_BEGIN,
               types.LOAD_ETHER_BALANCE_SUCCESS,
               types.LOAD_ETHER_BALANCE_FAILURE],
     }
+  }
+);
+
+export const setZeroEtherBalance = () => (
+  {
+    type: types.SET_ZERO_ETHER_BALANCE
   }
 );
 
@@ -69,5 +75,40 @@ export const setPhoneNumber = phoneNumber => (
   {
     type: types.SET_PHONE_NUMBER,
     phoneNumber
+  }
+);
+
+export const setEthAmount = ethAmount => (
+  {
+    type: types.SET_ETH_AMOUNT,
+    ethAmount
+  }
+);
+
+export const setTransactionProcessing = transactionProcessing => (
+  {
+    type: types.SET_TRANSACTION_PROCESSING,
+    transactionProcessing
+  }
+);
+
+export const setTransactionError = transactionError => (
+  {
+    type: types.SET_TRANSACTION_ERROR,
+    transactionError
+  }
+);
+
+export const setTransactionHash = transactionHash => (
+  {
+    type: types.SET_TRANSACTION_HASH,
+    transactionHash
+  }
+);
+
+export const setNetworkType = networkType => (
+  {
+    type: types.SET_NETWORK_TYPE,
+    networkType
   }
 );
