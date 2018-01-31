@@ -102,8 +102,8 @@
         "population": 2454,
         "type": "refugee",
         "coordinates": "32.293751, 36.327672",
-        "women": 28,
-        "children": 12,
+        "women": 1382,
+        "children": 429,
         "address": "0x17Bc58b788808DaB201a9A90817fF3C168BF3d61",
         "services": [
           {
