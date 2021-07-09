@@ -1,0 +1,57 @@
+{
+  "index": {
+    "nl": {
+      "container1": {
+          "title": "IDbox",
+          "decription": "Een kosten-efficient toestel dat mensen toe laat om een unieke identiteit te creeeren in ontwikkelende landen",
+          "sub1": "Gebruik makende van Blockchain en AI",
+          "sub2": "Internet and Grid Energie",
+          "sub3": "- Gedecentraliseerd en Gratis -"
+      },
+      "section1": {
+        "block-title": "Mijn identiteit is belangrijk",
+        "title": "Ontwikkelende landen en de Armen"
+      }
+    },
+    "en": {
+
+    },
+    "fr": {
+
+    },
+    "es": {
+
+    },
+    "sv": {
+
+    }
+  },
+  "contact": {
+    "en": {
+
+    },
+    "fr": {
+
+    },
+    "es": {
+
+    },
+    "sv": {
+
+    }
+  },
+  "about": {
+    "en": {
+
+    },
+    "fr": {
+
+    },
+    "es": {
+
+    },
+    "sv": {
+
+    }
+  }
+}
